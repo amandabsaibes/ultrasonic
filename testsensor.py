@@ -32,18 +32,29 @@ def ConvertHighLow(voltage):
 	else:
 		return 1
 
-def sensors:
+def sensors():
 	ultrasonic_channel = 0
 	output_channel = 24
+	input_channel = 18
 	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(output_channel, GPIO)
+	GPIO.setup(output_channel, GPIO.OUT)
+	GPIO.setup(input_channel, GPIO.IN)
 
 def main:
+	sensors()
 	while True:
 		# Read from ultrasonic data
 		ultrasonic_reading = ReadChannel(ultrasonic_channel)
 		ultrasonic_voltage = ConvertVolts(ultrasonic_reading, 2)
 		# Decide if high or low
 		highlow = ConvertHighLow(ultrasonic_voltage)
+		print("-------------------------------")
+		print("Voltage: {}").format(ultrasonic_voltage)
+		print("Digital Value: {}").format(highlow)
 		GPIO.output(output_channel, highlow)
+		print("-------------------------------")
+		print("Sent from output channel")
+		print("-------------------------------")
+		value_read = GPIO.input(input_channel)
+		print("Value: {}").format(value_read)
 		time.sleep(.01)
